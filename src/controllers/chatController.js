@@ -12,7 +12,7 @@ const messages = [
   };
   
   export const sendMessages = async (req, res) => {
-    const { sender, text } = req.body;
+    const { sender, text,chatHistory } = req.body;
   
     if (!sender || !text) {
       return res.status(400).json({ error: "Sender and text are required" });
@@ -30,7 +30,7 @@ const messages = [
     // ✨ Get response from Gemini
     let botText = "Hare Krishna";
     try {
-      botText = await askGemini(text);
+      botText = await askGemini(text,chatHistory);
     } catch (err) {
       console.error("Gemini Error:", err);
       botText = "Sorry, I couldn't understand. Please ask again.";
